@@ -7,13 +7,21 @@ fi
 F1=$1
 F2=$2
 SAMPLE=$3
+TYPE=$4
+
+# bam files
 MD_BAM=${SAMPLE}.bam
 PE_BAM=${SAMPLE}___pe.bam
 RG_BAM=${SAMPLE}___rg.bam
+
+# metrics files
 METRICS_FILE=${SAMPLE}___md.txt
 HS_METRICS_FILE=${SAMPLE}___hs.txt
 ALIGNMENT_SUMMARY_FILE=${SAMPLE}___AM.txt
+RNA_METRICS_FILE=${SAMPLE}___RNA.txt
+
 CMD_LOG=${SAMPLE}_commands.log
+
 # Load configuration file with references
 . /home/streidd/pipeline-scripts/pipeline.config
 
@@ -37,13 +45,6 @@ echo -e "Creating mark-dup bam \n\tO: ${MD_BAM} \n\tI: ${RG_BAM}"
 NEXT_CMD="$PICARD_CMD MarkDuplicates CREATE_INDEX=true METRICS_FILE=$METRICS_FILE OUTPUT=$MD_BAM INPUT=$RG_BAM"
 RUN_AND_LOG
 
-echo -e "Running hs metrics" 
-NEXT_CMD="$PICARD_CMD CollectHsMetrics \
-	BI=$BAIT_INTERVAL \
-	TI=$TARGET_INTERVAL \
-	I=$MD_BAM O=$HS_METRICS_FILE"
-RUN_AND_LOG
-
 echo -e "Running CollectAlignmentSummaryMetrics"
 NEXT_CMD="$PICARD_CMD CollectAlignmentSummaryMetrics \
     MAX_INSERT_SIZE=1000 \
@@ -51,5 +52,27 @@ NEXT_CMD="$PICARD_CMD CollectAlignmentSummaryMetrics \
     O=$ALIGNMENT_SUMMARY_FILE \
     R=$REF_GENOME"
 RUN_AND_LOG
+
+case $TYPE in
+   wes)
+      echo -e "Running hs metrics for Whole Exome Project" 
+      NEXT_CMD="$PICARD_CMD CollectHsMetrics \
+         BI=$BAIT_INTERVAL \
+         TI=$TARGET_INTERVAL \
+         I=$MD_BAM O=$HS_METRICS_FILE"
+      RUN_AND_LOG
+    ;;
+
+   wgs)
+      echo -e "Running Rna-Seq Metrics for Whole Genome Project"
+      NEXT_CMD="$PICARD_CMD CollectRnaSeqMetrics \
+         RIBOSOMAL_INTERVALS=$RIBOSOMAL_INTERVALS \
+         STRAND_SPECIFICITY=NONE \
+         REF_FLAT=$REF_FLAT \
+         I=$MD_BAM \
+         O=$RNA_METRICS_FILE"
+      RUN_AND_LOG
+   ;;
+esac
 
 echo "DONE" 
