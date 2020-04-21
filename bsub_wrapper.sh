@@ -8,13 +8,12 @@ SAMPLE=$1
 FASTQ1=$2
 FASTQ2=$3
 
-WORK_DIR=$(pwd)
+WORK_DIR=/home/streidd/pipeline-scripts
 SCRIPT=$WORK_DIR/bam_creation.sh
 
 JOB_NAME="STAT_GEN:${SAMPLE}"
 
 # load config
-WORK_DIR=$(pwd)
 . $WORK_DIR/pipeline.config
 
 echo -e "Using following reference\n\tReference Genome: ${REF_GENOME}\n\tBait Set: ${BAIT_INTERVAL}\n\tTarget Set: ${TARGET_INTERVAL}"

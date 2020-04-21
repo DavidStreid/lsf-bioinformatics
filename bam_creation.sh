@@ -15,8 +15,7 @@ HS_METRICS_FILE=${SAMPLE}___hs.txt
 ALIGNMENT_SUMMARY_FILE=${SAMPLE}___AM.txt
 CMD_LOG=${SAMPLE}_commands.log
 # Load configuration file with references
-WORK_DIR=$(pwd)
-. $WORK_DIR/pipeline.config
+. /home/streidd/pipeline-scripts/pipeline.config
 
 PICARD_CMD=/home/upops/Scripts/PicardScripts/picard
 BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa
