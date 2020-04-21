@@ -32,7 +32,7 @@ BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa
 RUN_AND_LOG() {
    date >> $CMD_LOG
    echo $NEXT_CMD >> $CMD_LOG
-   # eval $NEXT_CMD
+   eval $NEXT_CMD
    date >> $CMD_LOG
    echo "" >> $CMD_LOG
 }
