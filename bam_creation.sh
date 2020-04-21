@@ -28,17 +28,12 @@ CMD_LOG=${SAMPLE}_commands.log
 PICARD_CMD=/home/upops/Scripts/PicardScripts/picard
 BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa
 
-# Prints out timestamp, e.g. HH:MM:SS 
-timestamp() {
-  date +"%T"
-}
-
 # runs and logs the globally-set NEXT_CMD variable
 RUN_AND_LOG() {
-   timestamp >> $CMD_LOG
+   date >> $CMD_LOG
    echo $NEXT_CMD >> $CMD_LOG
-   eval $NEXT_CMD
-   timestamp >> $CMD_LOG
+   # eval $NEXT_CMD
+   date >> $CMD_LOG
    echo "" >> $CMD_LOG
 }
 
