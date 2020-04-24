@@ -1,4 +1,6 @@
-bcl2fastq=/opt/common/CentOS_6/bcl2fastq/bcl2fastq2-v2.20.0.422/bin/bcl2fastq
+# load config: need bcl2fastq
+. /home/streidd/pipeline-scripts/pipeline.config
+# bcl2fastq=/opt/common/CentOS_6/bcl2fastq/bcl2fastq2-v2.20.0.422/bin/bcl2fastq
 
 if [[ -z "$1"  ||  -z "$2" ]]
    then
