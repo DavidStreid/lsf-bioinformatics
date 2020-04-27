@@ -68,7 +68,7 @@ case $TYPE in
       RUN_AND_LOG
     ;;
 
-   wgs)
+   ped-peg)
       echo -e "Running Rna-Seq Metrics for Whole Genome Project"
       NEXT_CMD="$PICARD_CMD CollectRnaSeqMetrics \
          RIBOSOMAL_INTERVALS=$RIBOSOMAL_INTERVALS \
