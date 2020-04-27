@@ -11,6 +11,7 @@ SAMPLE=$4
 GENOME=$5
 BAIT_INTERVAL=$6	# optional param
 TARGET_INTERVAL=$7	# optional param
+REF_FLAT=$8		# optional param
 
 # bam files
 MD_BAM=${SAMPLE}.bam
@@ -70,7 +71,7 @@ case $TYPE in
    ped-peg)
       echo -e "Running Rna-Seq Metrics for Whole Genome Project"
       NEXT_CMD="$PICARD_CMD CollectRnaSeqMetrics \
-         RIBOSOMAL_INTERVALS=$RIBOSOMAL_INTERVALS \
+         RIBOSOMAL_INTERVALS=$TARGET_INTERVAL \
          STRAND_SPECIFICITY=NONE \
          REF_FLAT=$REF_FLAT \
          I=$MD_BAM \
