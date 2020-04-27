@@ -1,13 +1,17 @@
-if [[ -z "$1"  ||  -z "$2" || -z "$3" ]]
+if [[ -z "$1"  ||  -z "$2" || -z "$3" || -z "$4" || -z "$5" ]]
    then
       echo "ERROR: Need to specify fastqs and samples"
       exit 1
 fi
 
-F1=$1
-F2=$2
-SAMPLE=$3
-TYPE=$4
+TYPE=$1
+F1=$2
+F2=$3
+SAMPLE=$4
+GENOME=$5
+BAIT_INTERVAL=$6	# optional param
+TARGET_INTERVAL=$7	# optional param
+REF_FLAT=$8		# optional param
 
 # bam files
 MD_BAM=${SAMPLE}.bam
@@ -22,9 +26,6 @@ RNA_METRICS_FILE=${SAMPLE}___RNA.txt
 
 CMD_LOG=${SAMPLE}_commands.log
 
-# Load configuration file with references
-. /home/streidd/pipeline-scripts/pipeline.config
-
 PICARD_CMD=/home/upops/Scripts/PicardScripts/picard
 BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa
 
@@ -38,7 +39,7 @@ RUN_AND_LOG() {
 }
 
 echo -e "Creating alignment bam \n\tO: ${PE_BAM} \n\tI: ${F1}, ${F2}"
-NEXT_CMD="$BWA_CMD mem -M -t 8 $REF_GENOME $F1 $F2  | samtools view -bS - > $PE_BAM"
+NEXT_CMD="$BWA_CMD mem -M -t 8 $GENOME $F1 $F2  | samtools view -bS - > $PE_BAM"
 RUN_AND_LOG
 
 echo -e "Creating read-group bam \n\tO: ${RG_BAM} \n\tI: ${PE_BAM}" 
@@ -54,7 +55,7 @@ NEXT_CMD="$PICARD_CMD CollectAlignmentSummaryMetrics \
     MAX_INSERT_SIZE=1000 \
     I=$MD_BAM \
     O=$ALIGNMENT_SUMMARY_FILE \
-    R=$REF_GENOME"
+    R=$GENOME"
 RUN_AND_LOG
 
 case $TYPE in
@@ -67,10 +68,10 @@ case $TYPE in
       RUN_AND_LOG
     ;;
 
-   wgs)
+   ped-peg)
       echo -e "Running Rna-Seq Metrics for Whole Genome Project"
       NEXT_CMD="$PICARD_CMD CollectRnaSeqMetrics \
-         RIBOSOMAL_INTERVALS=$RIBOSOMAL_INTERVALS \
+         RIBOSOMAL_INTERVALS=$TARGET_INTERVAL \
          STRAND_SPECIFICITY=NONE \
          REF_FLAT=$REF_FLAT \
          I=$MD_BAM \
