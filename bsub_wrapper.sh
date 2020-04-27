@@ -28,7 +28,7 @@ case $TYPE in
        TYPE=ped-peg
        GENOME=${RNA_REF_GENOME}
        BAIT_INTERVAL=
-       TARGET_INTERVAL=
+       TARGET_INTERVAL=${RIBOSOMAL_INTERVALS}
        ;;
   *)
        TYPE=wgs
