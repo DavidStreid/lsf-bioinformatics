@@ -9,8 +9,8 @@ F1=$2
 F2=$3
 SAMPLE=$4
 GENOME=$5
-BAIT_INTERVAL=$6
-TARGET_INTERVAL=$7
+BAIT_INTERVAL=$6	# optional param
+TARGET_INTERVAL=$7	# optional param
 
 # bam files
 MD_BAM=${SAMPLE}.bam
