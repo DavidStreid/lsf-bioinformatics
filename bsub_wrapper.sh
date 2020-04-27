@@ -20,16 +20,21 @@ JOB_NAME="STAT_GEN:${SAMPLE}"
 # standardize project-type input
 TYPE=$(echo "$INPUT_TYPE" | awk '{print tolower($0)}')
 case $TYPE in
-  wes)
-    TYPE=wes
-    ;;
-
+   wes)
+       TYPE=wes
+       GENOME=${REF_GENOME}
+       ;;
+  ped-peg)
+       TYPE=ped-peg
+       GENOME=${RNA_REF_GENOME}
+       ;;
   *)
-    TYPE=wgs
-    ;;
+       TYPE=wgs
+       GENOME=${REF_GENOME}
+       ;;
 esac
 
-echo -e "\nSubmitting Project Type: ${TYPE}\n\nUsing following reference\n\tReference Genome: ${REF_GENOME}\n\tBait Set: ${BAIT_INTERVAL}\n\tTarget Set: ${TARGET_INTERVAL}\n"
+echo -e "\nSubmitting Project Type: ${TYPE}\n\nUsing following reference\n\tReference Genome: ${GENOME}\n\tBait Set: ${BAIT_INTERVAL}\n\tTarget Set: ${TARGET_INTERVAL}\n"
 echo "Is this correct? Press 1/2"
 select yn in "Yes" "No"; do
     case $yn in
@@ -42,4 +47,4 @@ echo "Please provide an LSF node to run on"
 read LSF_NODE
 
 # We are running all of the jobs on a 72-CPU node
-bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $FASTQ1 $FASTQ2 $SAMPLE $TYPE"
+bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $FASTQ1 $FASTQ2 $SAMPLE $GENOME $TYPE"

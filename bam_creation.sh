@@ -1,4 +1,4 @@
-if [[ -z "$1"  ||  -z "$2" || -z "$3" ]]
+if [[ -z "$1"  ||  -z "$2" || -z "$3" || -z "$4" || -z "$5" ]]
    then
       echo "ERROR: Need to specify fastqs and samples"
       exit 1
@@ -7,7 +7,8 @@ fi
 F1=$1
 F2=$2
 SAMPLE=$3
-TYPE=$4
+GENOME=$4
+TYPE=$5
 
 # bam files
 MD_BAM=${SAMPLE}.bam
@@ -38,7 +39,7 @@ RUN_AND_LOG() {
 }
 
 echo -e "Creating alignment bam \n\tO: ${PE_BAM} \n\tI: ${F1}, ${F2}"
-NEXT_CMD="$BWA_CMD mem -M -t 8 $REF_GENOME $F1 $F2  | samtools view -bS - > $PE_BAM"
+NEXT_CMD="$BWA_CMD mem -M -t 8 $GENOME $F1 $F2  | samtools view -bS - > $PE_BAM"
 RUN_AND_LOG
 
 echo -e "Creating read-group bam \n\tO: ${RG_BAM} \n\tI: ${PE_BAM}" 
@@ -54,7 +55,7 @@ NEXT_CMD="$PICARD_CMD CollectAlignmentSummaryMetrics \
     MAX_INSERT_SIZE=1000 \
     I=$MD_BAM \
     O=$ALIGNMENT_SUMMARY_FILE \
-    R=$REF_GENOME"
+    R=$GENOME"
 RUN_AND_LOG
 
 case $TYPE in
