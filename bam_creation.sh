@@ -4,11 +4,13 @@ if [[ -z "$1"  ||  -z "$2" || -z "$3" || -z "$4" || -z "$5" ]]
       exit 1
 fi
 
-F1=$1
-F2=$2
-SAMPLE=$3
-GENOME=$4
-TYPE=$5
+TYPE=$1
+F1=$2
+F2=$3
+SAMPLE=$4
+GENOME=$5
+BAIT_INTERVAL=$6
+TARGET_INTERVAL=$7
 
 # bam files
 MD_BAM=${SAMPLE}.bam
@@ -22,9 +24,6 @@ ALIGNMENT_SUMMARY_FILE=${SAMPLE}___AM.txt
 RNA_METRICS_FILE=${SAMPLE}___RNA.txt
 
 CMD_LOG=${SAMPLE}_commands.log
-
-# Load configuration file with references
-. /home/streidd/pipeline-scripts/pipeline.config
 
 PICARD_CMD=/home/upops/Scripts/PicardScripts/picard
 BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa

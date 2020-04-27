@@ -27,10 +27,14 @@ case $TYPE in
   ped-peg)
        TYPE=ped-peg
        GENOME=${RNA_REF_GENOME}
+       BAIT_INTERVAL=
+       TARGET_INTERVAL=
        ;;
   *)
        TYPE=wgs
        GENOME=${REF_GENOME}
+       BAIT_INTERVAL=
+       TARGET_INTERVAL=
        ;;
 esac
 
@@ -47,4 +51,4 @@ echo "Please provide an LSF node to run on"
 read LSF_NODE
 
 # We are running all of the jobs on a 72-CPU node
-bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $FASTQ1 $FASTQ2 $SAMPLE $GENOME $TYPE"
+bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $TYPE $FASTQ1 $FASTQ2 $SAMPLE $GENOME $BAIT_INTERVAL $TARGET_INTERVAL"
