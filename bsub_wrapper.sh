@@ -12,7 +12,7 @@ INPUT_TYPE=$4
 WORK_DIR=/home/streidd/pipeline-scripts
 SCRIPT=$WORK_DIR/bam_creation.sh
 
-JOB_NAME="STAT_GEN:${SAMPLE}"
+JOB_NAME="RNA_SEQ:${SAMPLE}"
 
 # load config
 . $WORK_DIR/pipeline.config
@@ -27,18 +27,18 @@ case $TYPE in
   ped-peg)
        TYPE=ped-peg
        GENOME=${RNA_REF_GENOME}
-       BAIT_INTERVAL=
+       BAIT_INTERVAL=NONE
        TARGET_INTERVAL=${RIBOSOMAL_INTERVALS}
        ;;
   *)
        TYPE=wgs
        GENOME=${REF_GENOME}
-       BAIT_INTERVAL=
-       TARGET_INTERVAL=
+       BAIT_INTERVAL=NONE
+       TARGET_INTERVAL=NONE
        ;;
 esac
 
-echo -e "\nSubmitting Project Type: ${TYPE}\n\nUsing following reference\n\tReference Genome: ${GENOME}\n\tBait Set: ${BAIT_INTERVAL}\n\tTarget Set: ${TARGET_INTERVAL}\n"
+echo -e "\nSubmitting Project Type: ${TYPE}\n\nUsing following reference\n\tReference Genome: ${GENOME}\n\tBait Set: ${BAIT_INTERVAL}\n\tTarget Set: ${TARGET_INTERVAL}\n\tRef Flat: ${REF_FLAT}"
 echo "Is this correct? Press 1/2"
 select yn in "Yes" "No"; do
     case $yn in
@@ -51,4 +51,4 @@ echo "Please provide an LSF node to run on"
 read LSF_NODE
 
 # We are running all of the jobs on a 72-CPU node
-bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $TYPE $FASTQ1 $FASTQ2 $SAMPLE $GENOME $BAIT_INTERVAL $TARGET_INTERVAL"
+bsub -J $JOB_NAME -o $JOB_NAME.out -m $LSF_NODE -n 72 -M 6 "$SCRIPT $TYPE $FASTQ1 $FASTQ2 $SAMPLE $GENOME $BAIT_INTERVAL $TARGET_INTERVAL $REF_FLAT"
