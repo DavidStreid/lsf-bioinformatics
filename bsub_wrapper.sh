@@ -12,7 +12,7 @@ INPUT_TYPE=$4
 WORK_DIR=/home/streidd/pipeline-scripts
 SCRIPT=$WORK_DIR/bam_creation.sh
 
-JOB_NAME="RNA_SEQ:${SAMPLE}"
+JOB_NAME="STAT_GEN:${SAMPLE}"
 
 # load config
 . $WORK_DIR/pipeline.config
