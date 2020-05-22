@@ -9,6 +9,8 @@ fi
 PROJECT_DIR=$1
 PROJECT=$2
 RESULTS=./contamination_output/${PROJECT}
+CONTAMINATION_RESULTS=${RESULTS}/contamination
+PILEUP_RESULTS=${RESULTS}/pileup
 
 # load in commands
 . /home/streidd/pipeline-scripts/pipeline.config
@@ -21,12 +23,14 @@ fi
 
 echo "Running contamination on ${num_bams} BAMs. Results: ${RESULTS}"
 mkdir -p "${RESULTS}"
+mkdir -p "${CONTAMINATION_RESULTS}"
+mkdir -p "${PILEUP_RESULTS}"
 
 for BAM in ${PROJECT_DIR}/*.bam;
 do
    results_base=$(basename $BAM)
-   pileup_result=${RESULTS}/pileup/${results_base}_pileups.table
-   contamination_result=${RESULTS}/contamination/${results_base}_contamination.table
+   pileup_result=${PILEUP_RESULTS}/${results_base}_pileups.table
+   contamination_result=${CONTAMINATION_RESULTS}/${results_base}_contamination.table
 
    echo "Processing $results_base"
 
