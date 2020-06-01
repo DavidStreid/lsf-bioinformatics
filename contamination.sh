@@ -41,7 +41,7 @@ do
       -O ${pileup_result}
    $gatk CalculateContamination \
       -I ${pileup_result} \
-      -O ${contamination_results}
+      -O ${contamination_result}
 done
 
 echo "Finished."
