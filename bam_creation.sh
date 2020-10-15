@@ -1,14 +1,15 @@
-if [[ -z "$1"  ||  -z "$2" || -z "$3" || -z "$4" || -z "$5" ]]
+if [[ -z "$1"  ||  -z "$2" || -z "$3"  ]]
    then
-      echo "ERROR: Need to specify fastqs and samples"
+      echo "ERROR: Need to specify fastqs and samples - ./bam_creation.sh {FASTQ1} {FASTQ2} {GENOME} {SAMPLE} {wes/ped-peg}"
+      printf "\te.g.\t./bam_creation.sh sample_R1_001.fastq.gz sample_R2_001.fastq.gz ./GRCh37.fastq.gz SAMPLE_ID wes\n"
       exit 1
 fi
 
-TYPE=$1
-F1=$2
-F2=$3
-SAMPLE=$4
-GENOME=$5
+F1=$1
+F2=$2
+GENOME=$3
+SAMPLE=$4		# optional param
+TYPE=$5			# optional param
 BAIT_INTERVAL=$6	# optional param
 TARGET_INTERVAL=$7	# optional param
 REF_FLAT=$8		# optional param
