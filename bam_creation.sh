@@ -27,7 +27,8 @@ RNA_METRICS_FILE=${SAMPLE}___RNA.txt
 
 CMD_LOG=${SAMPLE}_commands.log
 
-PICARD_CMD=/home/upops/Scripts/PicardScripts/picard
+PICARD_CMD=/home/igo/Scripts/PicardScripts/picard
+# /home/upops/Scripts/PicardScripts/picard
 BWA_CMD=/opt/common/CentOS_7/bwa/bwa-0.7.17/bwa
 
 # runs and logs the globally-set NEXT_CMD variable
