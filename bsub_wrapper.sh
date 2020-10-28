@@ -9,7 +9,7 @@ FASTQ1=$2
 FASTQ2=$3
 INPUT_TYPE=$4
 
-WORK_DIR=/home/streidd/pipeline-scripts
+WORK_DIR=/home/streidd/work/lsf-bioinformatics
 SCRIPT=$WORK_DIR/bam_creation.sh
 
 JOB_NAME="STAT_GEN:${SAMPLE}"
