@@ -1,6 +1,6 @@
 if [[ -z "$1"  ||  -z "$2" || -z "$3" || -z "$4" ]]; then
   printf "usage: ./demultiplex_wrapper.sh {RUN_PATH} {SAMPLESHEET} {OUTPUT_DIRECTORY} {PIPELINE_CONFIG}\ne.g.\n\t"
-  printf "./demultiplex_wrapper.sh /igo/sequencers/jax/200821_JAX_0461_AHHYJ5BBXY /home/igo/SampleSheetCopies/SampleSheet_200821_JAX_0461_AHHYJ5BBXY_A1.csv /igo/work/FASTQ/JAX_0461_AHHYJ5BBXY_A1\n"
+  printf "./demultiplex_wrapper.sh /igo/sequencers/diana/201012_DIANA_0246_AHKWJLDSXY /home/igo/SampleSheetCopies/SampleSheet_201026_DIANA_0246_RP.csv /igo/work/FASTQ/DIANA_0248_AHL2WFDSXY_RP /home/streidd/work/lsf-bioinformatics/pipeline.config\n"
   exit 1
 fi
 
