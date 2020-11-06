@@ -1,10 +1,11 @@
-
+# !/bin/bash
+# Runs blast on an input BAM
 
 FASTQ=$1
 SAMPLE=$2
 
 if [[ ! -f $FASTQ ]]; then
-  echo "Need to specify FASTQ"
+  echo "Need to specify FASTQ. Example:    ./fastq_to_blast.sh /path/to/fastq"
   exit 1
 fi
 
