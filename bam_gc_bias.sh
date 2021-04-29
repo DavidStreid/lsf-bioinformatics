@@ -27,7 +27,8 @@ BAM_FILE_NAME=$(basename $BAM)
 # DERIVED ARGUMENTS
 SAMPLE=${BAM_FILE_NAME/.bam/}
 
-GC_BIAS_CMD="picard CollectGcBiasMetrics I=$BAM O=${SAMPLE}_gc_bias_metrics.txt CHART=${SAMPLE}_gc_bias_metrics.pdf S=${SAMPLE}_summary_metrics.txt R=${REF_GENOME}"
+picard="java -jar /home/streidd/dependencies/picard/picard.jar"
+GC_BIAS_CMD="$picard CollectGcBiasMetrics I=$BAM O=${SAMPLE}_gc_bias_metrics.txt CHART=${SAMPLE}_gc_bias_metrics.pdf S=${SAMPLE}_summary_metrics.txt R=${REF_GENOME}"
 JOB_NAME="GC_BIAS___${SAMPLE}"
 BSUB_CMD="bsub -J ${JOB_NAME} -o ${SAMPLE}.out -e ${SAMPLE}.err -n 36 -M 6 ${GC_BIAS_CMD}"
 echo "RUNNING JOB: ${JOB_NAME}"

@@ -51,9 +51,9 @@ if [[ "${DOWN_SAMPLE}" != "" ]]; then
   FASTQ_LIST=""
   for FASTQ in $FASTQ1 $FASTQ2; do
     FASTQ_FILE=$(basename $FASTQ)
-    DS_FASTQ=${FASTQ_FILE/.fastq.gz/}_ds${DOWN_SAMPLE}.fastq.gz
+    DS_FASTQ=${OUTPUT_DIR}/${FASTQ_FILE/.fastq.gz/}_ds${DOWN_SAMPLE}.fastq.gz
     echo "Downsampling ${FASTQ} by factor of ${DOWN_SAMPLE}: ${DS_FASTQ}"
-    seqtk sample -s100 $FASTQ $DOWN_SAMPLE > ${OUTPUT_DIR}/$DS_FASTQ
+    seqtk sample -s100 $FASTQ $DOWN_SAMPLE > $DS_FASTQ
     FASTQ_LIST="${FASTQ_LIST} ${DS_FASTQ}"
   done
   BWA_MEM ${REF_GENOME} ${SAMPLE} ${FASTQ_LIST}
