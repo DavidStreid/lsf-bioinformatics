@@ -1,9 +1,9 @@
 #!/bin/bash
-# ./dragen_sc.sh /igo/delivery/FASTQ/MICHELLE_0144_BHLCYHDMXX/Project_10051/Sample_Lib34_ES_2i_plusLIF_3_IGO_10051_18
+# ./dragen_sc.sh /PATH/TO/SAMPLE/DEMUX
 
-FASTQ_DIR=$1	   # lib1_S7_L001_R2_001.fastq.gz
-ANNOTATION_FILE=/igo/work/nabors/genomes/10X_Genomics/GEX/refdata-gex-mm10-2020-A/genes/genes.gtf  # $2 # reference_genomes/Mus_musculus/mm10/gtf/gencode.vM23.annotation.gtf.gz
-REFERENCE_FILE=/igo/work/nabors/genomes/10X_Genomics/GEX/refdata-gex-mm10-2020-A/fasta/genome.fa # $3  # reference_genomes/Mus_musculus/mm10/DRAGEN/8 
+FASTQ_DIR=$1
+ANNOTATION_FILE=$2 # Grab these from the 10x reference downloads - https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/advanced/references
+REFERENCE_FILE=$3
 OUTPUT=$(pwd)
 SAMPLE=$(basename ${FASTQ_DIR} | grep -oP "(?<=Sample_).*")
 
