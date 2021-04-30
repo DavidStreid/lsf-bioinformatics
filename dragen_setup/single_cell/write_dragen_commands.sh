@@ -38,7 +38,7 @@ cat ${FASTQ_LIST_CSV} | tail -n+2 | cut -d',' -f2 | sort | uniq |  while read -r
   echo "  --fastq-list ${FASTQ_LIST_CSV} \\" >> ${dragen_cmd_file}
   echo "  --umi-source=read1 \\" >> ${dragen_cmd_file}
   echo "  --output-dir=${OUTPUT} \\" >> ${dragen_cmd_file}
-  echo "  --single-cell-barcode-position 0_15 \\" >> ${dragen_cmd_file}
-  echo "  --single-cell-umi-position 16_25 \\" >> ${dragen_cmd_file}
+  echo "  --single-cell-barcode-position 0_15 \\" >> ${dragen_cmd_file}  # These positions are based on 10x 3' version 2 chemistry
+  echo "  --single-cell-umi-position 16_25 \\" >> ${dragen_cmd_file}	 # https://support.10xgenomics.com/single-cell-gene-expression/library-prep/doc/user-guide-chromium-single-cell-3-reagent-kits-user-guide-v2-chemistry
   echo "  --output-file-prefix ${SAMPLE}" >> ${dragen_cmd_file}
 done 
